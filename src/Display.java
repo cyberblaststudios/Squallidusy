@@ -40,6 +40,7 @@ public class Display extends Canvas{
         {
             createBufferStrategy(2);
             graphics = getBufferStrategy().getDrawGraphics();
+
         }
 
         getBufferStrategy().show();
