@@ -1,9 +1,8 @@
 package Entities;
 
 import EntityComponents.EntityComponent;
+import Levels.Level;
 import Utils.Vector2D;
-import com.sun.javafx.animation.transition.Position2D;
-
 import java.util.ArrayList;
 
 /**
@@ -14,15 +13,33 @@ public abstract class Entity {
     // stores all of the components
     public ArrayList<EntityComponent> Components = new ArrayList<EntityComponent>();
 
-    public Entity Owner;
+    // the current level that this Entity lives in
+    private Level CurrentLevel;
 
-    // todo get a good Vector class ready
-
-    protected Vector2D CurrentPosition;
-
-    // tells when the Entity has intialized the component
-    public void OnComponentInitialized(Entity owner)
+    public Level GetLevel()
     {
-        Owner = owner;
+        return CurrentLevel;
+    }
+
+    public Entity(Vector2D Position, Level level)
+    {
+        // set the location
+        SetCurrentLocation(Position);
+
+        // set the current level
+        CurrentLevel = level;
+    }
+
+    // todo get a good Vector class read
+    private Vector2D CurrentLocation;
+
+    public Vector2D GetCurrentLocation()
+    {
+        return CurrentLocation;
+    }
+
+    public void SetCurrentLocation(Vector2D newLoc)
+    {
+        CurrentLocation = newLoc;
     }
 }

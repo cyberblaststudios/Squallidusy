@@ -1,28 +1,61 @@
-import java.awt.*;
+package Core;
+
+import Levels.Level;
+import Levels.MainLevel;
 
 /**
  * Created by jevanger on 2/6/2017.
  */
-import java.awt.*;
 
 public class GameInstance implements Runnable
 {
+    // this statically links the game instance singleton
+    private static GameInstance CurrentGameInst;
+
+    // reference to the current running level
+    private Level CurrentLevel;
+
+    // denotes whether the game is updating
     public boolean isRunning = true;
 
+    // determines the settings for the game loop
     final int TARGET_FPS = 60;
     final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
 
     public int fps = 0;
-
     public int lastFpsTime = 0;
 
+    // display for drawing things to the screen
     Display display;
 
     public GameInstance()
     {
+        // set the singleton to this instance
+        CurrentGameInst = this;
+
+        // load all initial assets
+        AssetManager.GetAssetManager();
+
+        // generates a new display
         display = new Display();
+
+        // run the current level >>>>TODO<<<<< make this a function to switch levels
+        CurrentLevel = new MainLevel();
     }
 
+    // returns the current game instance
+    public static GameInstance GetGameInstance()
+    {
+        return CurrentGameInst;
+    }
+
+    // gets the current running level
+    public Level GetCurrentLevel()
+    {
+        return CurrentLevel;
+    }
+
+    // this is the beating heart of the game
     public void GameLoop()
     {
         long lastLoopTime = System.nanoTime();
@@ -30,7 +63,6 @@ public class GameInstance implements Runnable
         // keep looping round til the game ends
         while (isRunning)
         {
-
             long now = System.nanoTime();
             long updateLength = now - lastLoopTime;
             lastLoopTime = now;
@@ -44,6 +76,7 @@ public class GameInstance implements Runnable
             // we last recorded
             if (lastFpsTime >= 1000000000)
             {
+                // debug the actual drawing FPS
                 System.out.println("(FPS: "+fps+")");
                 lastFpsTime = 0;
                 fps = 0;
@@ -55,11 +88,6 @@ public class GameInstance implements Runnable
             // draw to screen
             Render();
 
-            // we want each frame to take 10 milliseconds, to do this
-            // we've recorded when we started the frame. We add 10 milliseconds
-            // to this and then factor in the current time to give
-            // us our final value to wait for
-            // remember this is in ms, whereas our lastLoopTime etc. vars are in ns.
             try{
                 Thread.sleep( (lastLoopTime-System.nanoTime() + OPTIMAL_TIME)/1000000 );
             }
@@ -74,15 +102,16 @@ public class GameInstance implements Runnable
     {
         // runs every frame
 
+        // tick the level
+        CurrentLevel.LevelTick(deltaTime);
     }
 
     public void Render()
     {
         // Runs after the tick
-        display.DrawToFrameFromBuffer();
+        display.DrawToScreen();
     }
 
-    @Override
     public void run() {
         // start the game loop
         GameLoop();

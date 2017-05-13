@@ -1,3 +1,6 @@
+package Core;
+
+import Core.GameInstance;
 
 public class MainGame{
 
