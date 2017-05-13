@@ -19,14 +19,14 @@ public class GameInstance implements Runnable
     public boolean isRunning = true;
 
     // determines the settings for the game loop
-    final int TARGET_FPS = 60;
-    final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+    private final int TARGET_FPS = 60;
+    private final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
 
-    public int fps = 0;
-    public int lastFpsTime = 0;
+    private int fps = 0;
+    private int lastFpsTime = 0;
 
     // display for drawing things to the screen
-    Display display;
+    private Display display;
 
     public GameInstance()
     {
@@ -41,6 +41,7 @@ public class GameInstance implements Runnable
 
         // run the current level >>>>TODO<<<<< make this a function to switch levels
         CurrentLevel = new MainLevel();
+        CurrentLevel.StartLevel();
     }
 
     // returns the current game instance
@@ -53,6 +54,12 @@ public class GameInstance implements Runnable
     public Level GetCurrentLevel()
     {
         return CurrentLevel;
+    }
+
+    // gets the display
+    public Display GetDisplay()
+    {
+        return display;
     }
 
     // this is the beating heart of the game
@@ -89,7 +96,7 @@ public class GameInstance implements Runnable
             Render();
 
             try{
-                Thread.sleep( (lastLoopTime-System.nanoTime() + OPTIMAL_TIME)/1000000 );
+                Thread.sleep((lastLoopTime - System.nanoTime() + OPTIMAL_TIME) / 1000000);
             }
             catch(Exception e)
             {

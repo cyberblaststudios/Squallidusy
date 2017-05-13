@@ -2,7 +2,6 @@ package Levels;
 
 import Entities.Entity;
 import Utils.Vector2D;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -19,7 +18,8 @@ public abstract class Level {
     {
         for(Entity entity : WorldEntities)
         {
-
+            // tick each of the Entities
+            entity.Tick(DeltaTime);
         }
     }
 
@@ -30,15 +30,18 @@ public abstract class Level {
     }
 
     // this will spawn a entity in the world at the world position indicated by SpawnLocation
-    public Entity SpawnEntity(Class<Entity> SpawnClass, Vector2D SpawnLocation) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+    public Entity SpawnEntity(Class<?> SpawnClass, Vector2D SpawnLocation) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 
         // we are now calling a reflected constructor
-        Constructor<Entity> constructor = SpawnClass.getConstructor(Vector2D.class, Level.class);
+        Constructor<?> constructor = SpawnClass.getConstructor(Vector2D.class, Level.class);
 
-        Entity newEntity = constructor.newInstance(SpawnLocation, this);
+        Entity newEntity = (Entity)constructor.newInstance(SpawnLocation, this);
 
-        // add it to the entity registry
-        WorldEntities.add(newEntity);
+        if (newEntity != null)
+        {
+            // add it to the entity registry
+            WorldEntities.add(newEntity);
+        }
 
         return newEntity;
     }

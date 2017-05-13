@@ -30,6 +30,11 @@ public abstract class Entity {
         CurrentLevel = level;
     }
 
+    public void Tick(float DeltaTime)
+    {
+
+    }
+
     // todo get a good Vector class read
     private Vector2D CurrentLocation;
 
