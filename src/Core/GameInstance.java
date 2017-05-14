@@ -62,6 +62,11 @@ public class GameInstance implements Runnable
         return display;
     }
 
+    public int GetFps()
+    {
+        return fps;
+    }
+
     // this is the beating heart of the game
     public void GameLoop()
     {

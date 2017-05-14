@@ -3,8 +3,12 @@ package Core;
 import Rendering.RenderItem;
 import Rendering.Renderable;
 import Utils.Vector2D;
+import jdk.internal.util.xml.impl.Input;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -19,8 +23,9 @@ public class Display extends Canvas{
     // our game window
     private JFrame frame;
 
+    // this is the rendered resolution on the display, no matter the JFrame size
     public Vector2D ViewportSize = new Vector2D(1920, 1080);
-    public Vector2D ScaledViewportSize = new Vector2D(640, 360);
+    public Vector2D ScaledViewportSize = new Vector2D(1920, 1080);
 
     // this is the amount away from (0,0) that we render
     private Vector2D ViewportOffset = new Vector2D(0.0f, 0.0f);
@@ -32,19 +37,18 @@ public class Display extends Canvas{
     {
         // create the screen here
         frame = new JFrame("This amazing game");
-        JPanel panel = (JPanel)frame.getContentPane();
-        panel.setPreferredSize(new Dimension((int)ViewportSize.X, (int)ViewportSize.Y));
-        panel.setLayout(null);
-        frame.addKeyListener(InputManager.GetInputManager());
-        frame.setSize(new Dimension((int)ViewportSize.X, (int)ViewportSize.Y));
+        this.setMinimumSize(new Dimension((int)ViewportSize.X, (int)ViewportSize.Y));
+        this.setPreferredSize(new Dimension((int)ViewportSize.X, (int)ViewportSize.Y));
+        this.setMaximumSize(new Dimension((int)ViewportSize.X, (int)ViewportSize.Y));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        this.setIgnoreRepaint(true);
-        this.setSize(new Dimension((int)ViewportSize.X, (int)ViewportSize.Y));
-        panel.add(this);
+        frame.setLayout(new BorderLayout());
+        frame.add(this, BorderLayout.CENTER);
         frame.pack();
+        frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
+        this.addKeyListener(InputManager.GetInputManager());
+        this.requestFocus();
         // add the render buckets
 
         //UI_BUCKET
@@ -55,6 +59,16 @@ public class Display extends Canvas{
         RenderBucketList.add(new ArrayList<RenderItem>());
         //BACKGROUND_BUCKET
         RenderBucketList.add(new ArrayList<RenderItem>());
+    }
+
+    public void SetViewportScalePercentage(float percentage)
+    {
+        ScaledViewportSize = new Vector2D(ViewportSize.X * percentage, ViewportSize.Y * percentage);
+    }
+
+    public float GetViewportSizePercentage()
+    {
+        return ScaledViewportSize.X / ViewportSize.X;
     }
 
     public void SortRenderBucket(int renderBucket)
@@ -98,16 +112,21 @@ public class Display extends Canvas{
         ViewportOffset = newOffset;
     }
 
+    public Vector2D GetViewportOffset()
+    {
+        return ViewportOffset;
+    }
+
     public void DrawToScreen()
     {
         if (getBufferStrategy() == null)
         {
             // double buffer setup
             createBufferStrategy(2);
-
-            // gets the graphics object
-            graphics = (Graphics2D)getBufferStrategy().getDrawGraphics();
         }
+
+        // gets the graphics object
+        graphics = (Graphics2D)getBufferStrategy().getDrawGraphics();
 
         // update viewport size
         ViewportSize.X = frame.getWidth();
@@ -133,7 +152,7 @@ public class Display extends Canvas{
             }
         }
 
-        getBufferStrategy().show();
         graphics.dispose();
+        getBufferStrategy().show();
     }
 }

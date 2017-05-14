@@ -1,9 +1,9 @@
 package Core;
 
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Jaden on 5/13/2017.
@@ -26,6 +26,9 @@ public class InputManager implements KeyListener{
 
     ArrayList<InputEvent> Subscribers = new ArrayList<InputEvent>();
 
+    // keeps track of pressed keys
+    ArrayList<Integer> Pressedkeys = new ArrayList<Integer>();
+
     public void OnInputEvent(InputEvent e)
     {
         Subscribers.add(e);
@@ -40,6 +43,12 @@ public class InputManager implements KeyListener{
 
     public void keyPressed(KeyEvent e) {
 
+        System.out.println("oh yes baby");
+
+        if (!isKeyDown(e.getKeyCode())) {
+            Pressedkeys.add(new Integer(e.getKeyCode()));
+        }
+
         for (InputEvent event : Subscribers)
         {
             event.KeyPressed(e);
@@ -47,9 +56,35 @@ public class InputManager implements KeyListener{
     }
 
     public void keyReleased(KeyEvent e) {
+
+        // removes the items
+        for (int i = Pressedkeys.size() - 1; i >= 0; i--)
+        {
+            if (Pressedkeys.get(i).intValue() == e.getKeyCode())
+            {
+                Pressedkeys.remove(i);
+            }
+        }
+
         for (InputEvent event : Subscribers)
         {
             event.KeyReleased(e);
         }
+    }
+
+    // gets whether a key is pressed down or not
+    public boolean isKeyDown(int keyCode)
+    {
+        boolean isFound = false;
+        for (Integer i : Pressedkeys)
+        {
+            if (i.intValue() == keyCode)
+            {
+                isFound = true;
+                break;
+            }
+        }
+
+        return isFound;
     }
 }
