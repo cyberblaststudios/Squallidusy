@@ -43,17 +43,17 @@ public class Player extends Character{
             SetCurrentLocation(GetCurrentLocation().add(new Vector2D(MovementSpeed * DeltaTime, 0)));
         }*/
 
-        int dir = (int)(Math.random() * 3);
+        int dir = (int)(Math.random() * 4);
 
-        if (dir == 0)
+        if (dir == 1)
         {
             SetCurrentLocation(GetCurrentLocation().add(new Vector2D(0, -MovementSpeed * DeltaTime)));
         }
-        else if(dir == 1)
+        else if(dir == 2)
         {
             SetCurrentLocation(GetCurrentLocation().add(new Vector2D(0, MovementSpeed * DeltaTime)));
         }
-        if (dir == 2)
+        if (dir == 3)
         {
             SetCurrentLocation(GetCurrentLocation().add(new Vector2D(-MovementSpeed * DeltaTime, 0)));
         }

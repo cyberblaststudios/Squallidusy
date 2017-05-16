@@ -35,6 +35,16 @@ public abstract class Entity {
 
     }
 
+    public void Destroy()
+    {
+        // destroy all the components
+        for (EntityComponent comp : Components)
+        {
+            // destroy each component
+            comp.Destroy();
+        }
+    }
+
     // todo get a good Vector class read
     private Vector2D CurrentLocation;
 

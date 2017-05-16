@@ -45,4 +45,13 @@ public abstract class Level {
 
         return newEntity;
     }
+
+    public void Destroy()
+    {
+        for (Entity entity : WorldEntities)
+        {
+            // destroy each entity
+            entity.Destroy();
+        }
+    }
 }

@@ -18,7 +18,7 @@ public class MainLevel extends Level {
     {
         // spawn the entities here
         try {
-            for (int i = 0; i < 2000; i++) {
+            for (int i = 0; i < 100; i++) {
                 SpawnEntity(Player.class, new Vector2D(0.0f, 0.0f));
             }
         } catch (Exception e) {
