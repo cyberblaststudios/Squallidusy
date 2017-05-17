@@ -39,9 +39,38 @@ public class GameInstance implements Runnable
         // generates a new display
         display = new Display();
 
-        // run the current level >>>>TODO<<<<< make this a function to switch levels
-        CurrentLevel = new MainLevel();
-        CurrentLevel.StartLevel();
+        // run the current level
+        OpenLevel(MainLevel.class);
+    }
+
+    // opens a level
+    public void OpenLevel(Class<?> LevelClass)
+    {
+        // destroy the current level
+        if (CurrentLevel != null)
+        {
+            CurrentLevel.Destroy();
+        }
+
+        // spawn the level
+        Level newLevel = null;
+        try
+        {
+            newLevel = (Level)LevelClass.newInstance();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        if (newLevel != null)
+        {
+            // assign the current level
+            CurrentLevel = newLevel;
+
+            // start the level
+            newLevel.StartLevel();
+        }
     }
 
     // returns the current game instance

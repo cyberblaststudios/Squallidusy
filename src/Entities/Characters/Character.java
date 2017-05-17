@@ -11,14 +11,11 @@ import Utils.Vector2D;
  */
 public class Character extends Entity {
 
-    private SpriteComponent CharacterSprite = null;
+    protected SpriteComponent CharacterSprite = null;
 
     public Character(Vector2D Position, Level level)
     {
         super(Position, level);
-
-        // create the characterSprite
-        CharacterSprite = new SpriteComponent(this, new Vector2D(0.0f, 0.0f), "image1", RenderBuckets.FOREGROUND_BUCKET, 100);
     }
 
     public SpriteComponent GetCharacterSpriteComponent()

@@ -18,6 +18,7 @@ public class SpriteComponent extends EntityComponent implements Renderable{
     private int RenderBucket;
     private int RenderPriority;
 
+
     public SpriteComponent(Entity inOwner, Vector2D relativeLocation, String imgAssetID, int renderBucket, int renderPriority)
     {
         super(inOwner, relativeLocation);
@@ -31,6 +32,21 @@ public class SpriteComponent extends EntityComponent implements Renderable{
 
         // create the sprite
         CurrentSprite = new Sprite(imgAssetID, GetWorldLocation());
+    }
+
+    public void SetImageAssetID(String AssetID)
+    {
+        CurrentSprite.SetImageAssetID(AssetID);
+    }
+
+    public void SetXFlipped(boolean XFlipped)
+    {
+        CurrentSprite.setXFlipped(XFlipped);
+    }
+
+    public void SetYFlipped(boolean YFlipped)
+    {
+        CurrentSprite.setYFlipped(YFlipped);
     }
 
     @Override

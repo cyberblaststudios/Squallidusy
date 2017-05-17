@@ -32,7 +32,17 @@ public abstract class Entity {
 
     public void Tick(float DeltaTime)
     {
+        // called every frame
+    }
 
+    public void Destroy()
+    {
+        // destroy all the components
+        for (EntityComponent comp : Components)
+        {
+            // destroy each component
+            comp.Destroy();
+        }
     }
 
     // todo get a good Vector class read
