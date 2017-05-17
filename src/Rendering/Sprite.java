@@ -1,6 +1,8 @@
 package Rendering;
 
 import Core.AssetManager;
+import Core.Display;
+import Core.GameInstance;
 import Utils.Vector2D;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,6 +16,9 @@ public class Sprite {
     private BufferedImage SpriteImage;
     private Vector2D SpritePosition;
 
+    private boolean XFlipped = false;
+    private boolean YFlipped = false;
+
     // loads immage from asset ID
     public Sprite(String assetID, Vector2D spritePosition)
     {
@@ -21,6 +26,22 @@ public class Sprite {
         SetImageAssetID(assetID);
 
         SetPosition(spritePosition);
+    }
+
+    public boolean isXFlipped() {
+        return XFlipped;
+    }
+
+    public void setXFlipped(boolean XFlipped) {
+        this.XFlipped = XFlipped;
+    }
+
+    public boolean isYFlipped() {
+        return YFlipped;
+    }
+
+    public void setYFlipped(boolean YFlipped) {
+        this.YFlipped = YFlipped;
     }
 
     // Position is in world units
@@ -42,12 +63,27 @@ public class Sprite {
         SpriteImage = assetManager.GetImageAsset(assetID);
     }
 
-    public void Render(Graphics2D g)
-    {
-        g.drawImage(SpriteImage, (int)SpritePosition.X, (int)SpritePosition.Y, new ImageObserver() {
-            public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
-                return true;
-            }
-        });
+    public void Render(Graphics2D g) {
+
+        //Rectangle spriteBounds = new Rectangle((int) SpritePosition.X, (int) SpritePosition.Y, SpriteImage.getWidth(), SpriteImage.getHeight());
+
+        //Display vp = GameInstance.GetGameInstance().GetDisplay();
+
+        //Rectangle viewportBounds = new Rectangle((int) vp.GetViewportOffset().X, (int) vp.GetViewportOffset().Y, (int) vp.ScaledViewportSize.X, (int) vp.ScaledViewportSize.Y);
+
+        // cull out any render targets that are not in view
+        //if (viewportBounds.intersects(spriteBounds))
+        //{
+            int sx1 = XFlipped ? SpriteImage.getWidth() : 0;
+
+            int sy1 = YFlipped ? SpriteImage.getHeight() : 0;
+
+            int sx2 = XFlipped ? 0 : SpriteImage.getWidth();
+
+            int sy2 = YFlipped ? 0 : SpriteImage.getHeight();
+
+            // draw the image with flipping handled
+            g.drawImage(SpriteImage, (int) SpritePosition.X, (int) SpritePosition.Y, (int) SpritePosition.X + SpriteImage.getWidth(), (int) SpritePosition.Y + SpriteImage.getHeight(), sx1, sy1, sx2, sy2, null);
+       // }
     }
 }

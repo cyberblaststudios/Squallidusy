@@ -16,12 +16,24 @@ public abstract class EntityComponent {
     {
         Owner = inOwner;
 
+        // auto add the component
+        if (Owner != null)
+        {
+            Owner.Components.add(this);
+        }
+
         SetRelativeLocation(relativeLocation);
     }
 
     public void Destroy()
     {
         // called when this component is destroyed
+
+        // auto remove the component
+        if (Owner != null)
+        {
+            Owner.Components.remove(this);
+        }
     }
 
     public Vector2D GetWorldLocation()

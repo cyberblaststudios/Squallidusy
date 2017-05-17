@@ -54,16 +54,23 @@ public class GameInstance implements Runnable
 
         // spawn the level
         Level newLevel = null;
-        try {
+        try
+        {
             newLevel = (Level)LevelClass.newInstance();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 
-        CurrentLevel = newLevel;
+        if (newLevel != null)
+        {
+            // assign the current level
+            CurrentLevel = newLevel;
 
-        // start the level
-        newLevel.StartLevel();
+            // start the level
+            newLevel.StartLevel();
+        }
     }
 
     // returns the current game instance

@@ -24,7 +24,11 @@ public class AssetManager {
         CurrentAssetManager = this;
 
         // >>>>>> globally loaded assets go here <<<<<<<
-        LoadAsset("image1", "./res/bandit.png");
+        LoadAsset("warrior_still", "./res/Characters/Space_Warrior/warrior_standing.png");
+        LoadAsset("warrior_shooting", "./res/Characters/Space_Warrior/warrior_shooting.png");
+        LoadAsset("warrior_running", "./res/Characters/Space_Warrior/warrior_running.png");
+        LoadAsset("warrior_jumping", "./res/Characters/Space_Warrior/warrior_jumping.png");
+        LoadAsset("FT_GRASS", "./res/Floor_Tiles/Grass_Floor_Tile.png");
     }
 
     public static AssetManager GetAssetManager()

@@ -32,7 +32,7 @@ public abstract class Entity {
 
     public void Tick(float DeltaTime)
     {
-
+        // called every frame
     }
 
     public void Destroy()

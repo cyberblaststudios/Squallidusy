@@ -32,8 +32,12 @@ public abstract class Level {
     // this will spawn a entity in the world at the world position indicated by SpawnLocation
     public Entity SpawnEntity(Class<?> SpawnClass, Vector2D SpawnLocation) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 
+        if (SpawnClass == null) return null;
+
         // we are now calling a reflected constructor
         Constructor<?> constructor = SpawnClass.getConstructor(Vector2D.class, Level.class);
+
+        if (constructor == null) return null;
 
         Entity newEntity = (Entity)constructor.newInstance(SpawnLocation, this);
 

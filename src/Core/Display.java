@@ -62,6 +62,7 @@ public class Display extends Canvas{
 
     public void SetViewportScalePercentage(float percentage)
     {
+        // finally set the scaling
         ScaledViewportSize = new Vector2D(ViewportSize.X * percentage, ViewportSize.Y * percentage);
     }
 
@@ -133,6 +134,9 @@ public class Display extends Canvas{
 
         // clear the image for the next frame
         graphics.clearRect(0, 0, (int)ViewportSize.X, (int)ViewportSize.Y);
+
+        // make sure the scaling does not go off center
+        graphics.translate(ViewportSize.X / 2, ViewportSize.Y / 2);
         graphics.scale(ViewportSize.X / ScaledViewportSize.X, ViewportSize.Y / ScaledViewportSize.Y);
 
         // allow the viewport to shift
