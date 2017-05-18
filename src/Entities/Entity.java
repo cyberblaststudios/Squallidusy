@@ -43,6 +43,8 @@ public abstract class Entity {
             // destroy each component
             comp.Destroy();
         }
+
+        GetLevel().DestroyList.remove(this);
     }
 
     // todo get a good Vector class read

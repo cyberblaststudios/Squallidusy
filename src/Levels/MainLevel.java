@@ -15,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class MainLevel extends Level {
 
-    float panspeed = 1;
+    float panspeed = 10;
 
     public void StartLevel()
     {

@@ -29,6 +29,7 @@ public class AssetManager {
         LoadAsset("warrior_running", "./res/Characters/Space_Warrior/warrior_running.png");
         LoadAsset("warrior_jumping", "./res/Characters/Space_Warrior/warrior_jumping.png");
         LoadAsset("FT_GRASS", "./res/Floor_Tiles/Grass_Floor_Tile.png");
+        LoadAsset("BLAST_01", "./res/Characters/Space_Warrior/warrior_blast.png");
     }
 
     public static AssetManager GetAssetManager()
