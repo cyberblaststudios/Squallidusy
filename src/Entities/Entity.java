@@ -38,13 +38,11 @@ public abstract class Entity {
     public void Destroy()
     {
         // destroy all the components
-        for (EntityComponent comp : Components)
+        for (int i = Components.size() - 1; i >= 0; i--)
         {
             // destroy each component
-            comp.Destroy();
+            Components.get(i).Destroy();
         }
-
-        GetLevel().DestroyList.remove(this);
     }
 
     // todo get a good Vector class read

@@ -40,6 +40,5 @@ public class Blast extends Entity{
         if(timeout <= 0) {
             Destroy();
         }
-
     }
 }

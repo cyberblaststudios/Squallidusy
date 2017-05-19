@@ -107,7 +107,9 @@ public class GameInstance implements Runnable
             long now = System.nanoTime();
             long updateLength = now - lastLoopTime;
             lastLoopTime = now;
-            float delta = updateLength / ((float)OPTIMAL_TIME);
+            float delta = updateLength / 1000.0f;
+
+            System.out.println(delta);
 
             // update the frame counter
             lastFpsTime += updateLength;
@@ -130,12 +132,15 @@ public class GameInstance implements Runnable
             Render();
 
             try{
-                Thread.sleep((lastLoopTime - System.nanoTime() + OPTIMAL_TIME) / 1000000);
+                //Thread.sleep((lastLoopTime - System.nanoTime() + OPTIMAL_TIME) / 1000000);
             }
             catch(Exception e)
             {
                 // some thread thing failed!
             }
+
+            // UPDATE BACK THE LAST TIME
+            lastLoopTime = System.nanoTime();
         }
     }
 

@@ -3,6 +3,7 @@ package Levels;
 import Core.Display;
 import Core.GameInstance;
 import Core.InputManager;
+import Entities.Characters.Mob;
 import Entities.Characters.Player;
 import Entities.World.FloorTile;
 import Utils.Vector2D;
@@ -25,7 +26,7 @@ public class MainLevel extends Level {
             Display dis = GameInstance.GetGameInstance().GetDisplay();
 
             SpawnEntity(Player.class, new Vector2D(0,0));
-
+            SpawnEntity(Mob.class, new Vector2D(1,1));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -14,19 +14,12 @@ public abstract class Level {
     // keeps track of all the game entites in the world
     public ArrayList<Entity> WorldEntities = new ArrayList<Entity>();
 
-    public ArrayList<Entity> DestroyList = new ArrayList<Entity>();
-
     public void LevelTick(float DeltaTime)
     {
-        for(Entity entity : WorldEntities)
+        for(int i = WorldEntities.size() - 1; i >= 0; i--)
         {
             // tick each of the Entities
-            entity.Tick(DeltaTime);
-        }
-
-        for (int i = DestroyList.size() - 1; i >=0; i--)
-        {
-            DestroyList.get(i).Destroy();
+            WorldEntities.get(i).Tick(DeltaTime);
         }
     }
 
