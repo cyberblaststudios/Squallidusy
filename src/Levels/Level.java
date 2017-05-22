@@ -1,7 +1,10 @@
 package Levels;
 
 import Entities.Entity;
+import EntityComponents.CollisionComponent;
 import Utils.Vector2D;
+
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -13,6 +16,13 @@ public abstract class Level {
 
     // keeps track of all the game entites in the world
     public ArrayList<Entity> WorldEntities = new ArrayList<Entity>();
+
+    public ArrayList<CollisionComponent> CollisionComps = new ArrayList<CollisionComponent>();
+
+    public void RegisterCollision(CollisionComponent comp)
+    {
+        CollisionComps.add(comp);
+    }
 
     public void LevelTick(float DeltaTime)
     {

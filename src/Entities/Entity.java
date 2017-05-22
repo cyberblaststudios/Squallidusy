@@ -33,6 +33,11 @@ public abstract class Entity {
     public void Tick(float DeltaTime)
     {
         // called every frame
+        for (EntityComponent comp : Components)
+        {
+            // call the tick on each one
+            comp.ComponentTick(DeltaTime);
+        }
     }
 
     public void Destroy()

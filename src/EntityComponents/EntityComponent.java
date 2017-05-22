@@ -56,4 +56,9 @@ public abstract class EntityComponent {
     {
         RelativeLocation = relLocation;
     }
+
+    public void ComponentTick(float DeltaTime)
+    {
+
+    }
 }
