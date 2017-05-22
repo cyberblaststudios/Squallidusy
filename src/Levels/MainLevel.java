@@ -16,7 +16,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class MainLevel extends Level {
 
-    float panspeed = 10;
+    float panspeed = 100.0f;
 
     public void StartLevel()
     {
@@ -43,8 +43,6 @@ public class MainLevel extends Level {
                 }
             }
         }
-
-        //GameInstance.GetGameInstance().GetDisplay().SetViewportScalePercentage(40);
     }
 
     public void LevelTick(float DeltaTime)
