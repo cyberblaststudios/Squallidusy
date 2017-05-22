@@ -1,5 +1,6 @@
 package EntityComponents;
 
+import Core.GameInstance;
 import Entities.Entity;
 import Utils.Vector2D;
 
@@ -12,7 +13,7 @@ import java.util.Vector;
  */
 public class CollisionComponent extends EntityComponent {
 
-    public Rectangle Box;
+    public Rectangle Box = new Rectangle();
 
     private int Width;
     private int Height;
@@ -22,6 +23,8 @@ public class CollisionComponent extends EntityComponent {
 
         Width = width;
         Height = height;
+
+        Box.setBounds((int)GetWorldLocation().X, (int)GetWorldLocation().Y, width, height);
 
         // register this to the global pool of collision components
         Owner.GetLevel().CollisionComps.add(this);

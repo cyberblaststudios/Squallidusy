@@ -4,6 +4,7 @@ import Core.GameInstance;
 import Core.InputEvent;
 import Core.InputManager;
 import Entities.Projectiles.Blast;
+import EntityComponents.CollisionComponent;
 import EntityComponents.SpriteComponent;
 import Levels.Level;
 import Rendering.RenderBuckets;
@@ -17,7 +18,9 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class Player extends Character{
 
-    float MovementSpeed = 10.0f;
+    float MovementSpeed = 100.0f;
+
+    public CollisionComponent collision;
 
     public Player(Vector2D Position, Level level)
     {
@@ -25,6 +28,8 @@ public class Player extends Character{
 
         // create the characterSprite
         CharacterSprite = new SpriteComponent(this, new Vector2D(0.0f, 0.0f), "warrior_still", RenderBuckets.FOREGROUND_BUCKET, 100);
+
+        collision = new CollisionComponent(this, new Vector2D(0,0), 100, 100);
 
         InputManager.GetInputManager().OnInputEvent(new InputEvent() {
             public void KeyPressed(KeyEvent e) {
@@ -92,21 +97,33 @@ public class Player extends Character{
 
         if (InputManager.GetInputManager().isKeyDown(KeyEvent.VK_UP))
         {
-            SetCurrentLocation(GetCurrentLocation().add(new Vector2D(0, -MovementSpeed * DeltaTime)));
+            if (collision.CheckMove(new Vector2D(0, -1), MovementSpeed * DeltaTime).size() == 0)
+            {
+                SetCurrentLocation(GetCurrentLocation().add(new Vector2D(0, -MovementSpeed * DeltaTime)));
+            }
         }
         else if(InputManager.GetInputManager().isKeyDown(KeyEvent.VK_DOWN))
         {
-            SetCurrentLocation(GetCurrentLocation().add(new Vector2D(0, MovementSpeed * DeltaTime)));
+            if (collision.CheckMove(new Vector2D(0, 1), MovementSpeed * DeltaTime).size() == 0)
+            {
+                SetCurrentLocation(GetCurrentLocation().add(new Vector2D(0, MovementSpeed * DeltaTime)));
+            }
         }
         if (InputManager.GetInputManager().isKeyDown(KeyEvent.VK_LEFT))
         {
-            SetCurrentLocation(GetCurrentLocation().add(new Vector2D(-MovementSpeed * DeltaTime, 0)));
-            CharacterSprite.SetXFlipped(true);
+            if (collision.CheckMove(new Vector2D(-1, 0), MovementSpeed * DeltaTime).size() == 0)
+            {
+                SetCurrentLocation(GetCurrentLocation().add(new Vector2D(-MovementSpeed * DeltaTime, 0)));
+                CharacterSprite.SetXFlipped(true);
+            }
         }
         else if(InputManager.GetInputManager().isKeyDown(KeyEvent.VK_RIGHT))
         {
-            SetCurrentLocation(GetCurrentLocation().add(new Vector2D(MovementSpeed * DeltaTime, 0)));
-            CharacterSprite.SetXFlipped(false);
+            if (collision.CheckMove(new Vector2D(1, 0), MovementSpeed * DeltaTime).size() == 0)
+            {
+                SetCurrentLocation(GetCurrentLocation().add(new Vector2D(MovementSpeed * DeltaTime, 0)));
+                CharacterSprite.SetXFlipped(false);
+            }
         }
     }
 }

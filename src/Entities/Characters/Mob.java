@@ -2,6 +2,7 @@ package Entities.Characters;
 
 import Core.GameInstance;
 import EntityComponents.SpriteComponent;
+import EntityComponents.CollisionComponent;
 import Levels.Level;
 import Rendering.RenderBuckets;
 import Utils.Vector2D;
@@ -15,10 +16,14 @@ public class Mob extends Character{
 
     float MovementSpeed = 10.0f;
 
+    public CollisionComponent collision;
+
     public Mob(Vector2D Position, Level level) {
         super(Position, level);
 
         CharacterSprite = new SpriteComponent(this, new Vector2D(0,0), "MOB_01", RenderBuckets.FOREGROUND_BUCKET, 100);
+
+        collision = new CollisionComponent(this, new Vector2D(0,0), 100, 100);
     }
 
     public void Tick(float DeltaTime)
