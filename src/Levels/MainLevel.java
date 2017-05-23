@@ -26,7 +26,7 @@ public class MainLevel extends Level {
             Display dis = GameInstance.GetGameInstance().GetDisplay();
 
             SpawnEntity(Player.class, new Vector2D(0,0));
-            SpawnEntity(Mob.class, new Vector2D(1,1));
+            SpawnEntity(Mob.class, new Vector2D(200,200));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,24 +48,6 @@ public class MainLevel extends Level {
     public void LevelTick(float DeltaTime)
     {
         super.LevelTick(DeltaTime);
-
-        // viewport controls
-        if (InputManager.GetInputManager().isKeyDown(KeyEvent.VK_UP))
-        {
-            GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(new Vector2D(0, panspeed * DeltaTime)));
-        }
-        else if(InputManager.GetInputManager().isKeyDown(KeyEvent.VK_DOWN))
-        {
-            GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(new Vector2D(0, -panspeed * DeltaTime)));
-        }
-        if (InputManager.GetInputManager().isKeyDown(KeyEvent.VK_LEFT))
-        {
-            GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(new Vector2D(panspeed * DeltaTime, 0)));
-        }
-        else if(InputManager.GetInputManager().isKeyDown(KeyEvent.VK_RIGHT))
-        {
-            GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(new Vector2D(-panspeed * DeltaTime, 0)));
-        }
 
         if (InputManager.GetInputManager().isKeyDown(KeyEvent.VK_PAGE_UP))
         {
