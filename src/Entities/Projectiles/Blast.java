@@ -1,6 +1,7 @@
 package Entities.Projectiles;
 
 import Entities.Entity;
+import EntityComponents.CollisionComponent;
 import EntityComponents.SpriteComponent;
 import Levels.Level;
 import Rendering.RenderBuckets;
@@ -18,10 +19,14 @@ public class Blast extends Entity{
 
     private Vector2D Direction;
 
+    public CollisionComponent collision;
+
     public Blast(Vector2D Position, Level level) {
         super(Position, level);
 
         SpriteComponent sprite = new SpriteComponent(this, new Vector2D(0,0), "BLAST_01", RenderBuckets.FOREGROUND_BUCKET, 10000);
+
+        collision = new CollisionComponent(this, new Vector2D(0,0), 16, 13);
     }
 
     public void Initialize(Vector2D direction, float speed)
@@ -35,6 +40,14 @@ public class Blast extends Entity{
 
     public void Tick(float DeltaTime)
     {
+        super.Tick(DeltaTime);
+
+        // check the collision
+        if (collision.CollisionCheck().size() > 0)
+        {
+            System.out.println("lu=sfsfsfsf");
+        }
+
         SetCurrentLocation(GetCurrentLocation().add(Direction.scale(Speed)));
         timeout -= DeltaTime;
         if(timeout <= 0) {

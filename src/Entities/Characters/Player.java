@@ -11,6 +11,7 @@ import Rendering.RenderBuckets;
 import Utils.Vector2D;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -88,6 +89,37 @@ public class Player extends Character{
             }
 
             public void KeyTyped(KeyEvent e) {}
+
+            public void mouseClicked(MouseEvent e) {
+                Vector2D mousePos = new Vector2D(e.getX(), e.getY());
+
+                Vector2D screenCenter = new Vector2D(GameInstance.GetGameInstance().GetDisplay().frame.getWidth() / 2, GameInstance.GetGameInstance().GetDisplay().getHeight() / 2);
+
+                Vector2D shootDir = mousePos.sub(screenCenter).normalize();
+
+                Blast bl = null;
+
+                try {
+                    bl = (Blast) GetLevel().SpawnEntity(Blast.class, GetCurrentLocation());
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
+                if (bl != null)
+                {
+                    bl.Initialize(shootDir, 20.0f);
+                }
+
+                System.out.println("kljsjsdfj");
+            }
+
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            public void mouseReleased(MouseEvent e) {
+
+            }
         });
     }
 
