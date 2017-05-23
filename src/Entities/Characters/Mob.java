@@ -30,6 +30,7 @@ public class Mob extends Character{
     {
         super.Tick(DeltaTime);
 
+        /*
         int dir = (int)(Math.random() * 3);
 
         if (dir == 0)
@@ -48,5 +49,7 @@ public class Mob extends Character{
         {
             SetCurrentLocation(GetCurrentLocation().add(new Vector2D(MovementSpeed * DeltaTime, 0)));
         }
+
+        */
     }
 }
