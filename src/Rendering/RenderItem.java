@@ -17,6 +17,6 @@ public class RenderItem implements Comparable{
 
     public int compareTo(Object o) {
         RenderItem other = (RenderItem)o;
-        return RenderPriority < other.RenderPriority ? -1 : (RenderPriority < other.RenderPriority ) ? 1 : 0;
+        return RenderPriority < other.RenderPriority ? 1 : (RenderPriority == other.RenderPriority) ? 0 : -1;
     }
 }

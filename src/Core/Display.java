@@ -1,5 +1,6 @@
 package Core;
 
+import EntityComponents.CollisionComponent;
 import Rendering.RenderItem;
 import Rendering.Renderable;
 import Utils.Vector2D;
@@ -17,7 +18,7 @@ import java.util.Collections;
 public class Display extends Canvas{
 
     // graphics object
-    private Graphics2D graphics;
+    public Graphics2D graphics;
 
     // our game window
     private JFrame frame;
@@ -101,9 +102,6 @@ public class Display extends Canvas{
         if (renderBucket >= 0 && renderBucket < RenderBucketList.size())
         {
             RenderBucketList.get(renderBucket).remove(renderItem);
-
-            // now we should sort the bucket
-            SortRenderBucket(renderBucket);
         }
     }
 
@@ -145,14 +143,20 @@ public class Display extends Canvas{
         // render the buckets here
         for (ArrayList<RenderItem> list : RenderBucketList)
         {
-            for (RenderItem item : list)
+            for (int i = list.size() - 1; i >= 0; i--)
             {
                 // render each item
-                if (item.renderObject != null)
+                if (list.get(i).renderObject != null)
                 {
-                    item.renderObject.Render(graphics);
+                    list.get(i).renderObject.Render(graphics);
                 }
             }
+        }
+
+        // draw the collision
+        for (CollisionComponent comp : GameInstance.GetGameInstance().CurrentLevel.CollisionComps)
+        {
+            graphics.drawRect(comp.Box.x, comp.Box.y, comp.Box.width, comp.Box.height);
         }
 
         graphics.dispose();

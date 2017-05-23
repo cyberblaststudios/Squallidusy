@@ -13,7 +13,7 @@ public class GameInstance implements Runnable
     private static GameInstance CurrentGameInst;
 
     // reference to the current running level
-    private Level CurrentLevel;
+    public Level CurrentLevel;
 
     // denotes whether the game is updating
     public boolean isRunning = true;
