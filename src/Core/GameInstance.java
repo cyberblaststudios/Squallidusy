@@ -18,15 +18,10 @@ public class GameInstance implements Runnable
     // denotes whether the game is updating
     public boolean isRunning = true;
 
-    // determines the settings for the game loop
-    private final int TARGET_FPS = 60;
-    private final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
-
-    private int fps = 0;
-    private int lastFpsTime = 0;
-
     // display for drawing things to the screen
     private Display display;
+
+    private double fps;
 
     public GameInstance()
     {
@@ -91,7 +86,7 @@ public class GameInstance implements Runnable
         return display;
     }
 
-    public int GetFps()
+    public double GetFps()
     {
         return fps;
     }
@@ -100,6 +95,10 @@ public class GameInstance implements Runnable
     public void GameLoop()
     {
         long lastLoopTime = System.nanoTime();
+        final int TARGET_FPS = 60;
+        final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+
+        double lastFpsTime = 0;
 
         // keep looping round til the game ends
         while (isRunning)
@@ -107,40 +106,30 @@ public class GameInstance implements Runnable
             long now = System.nanoTime();
             long updateLength = now - lastLoopTime;
             lastLoopTime = now;
-            float delta = updateLength / 1000.0f;
+            double delta = updateLength / ((double)OPTIMAL_TIME);
 
-            System.out.println(delta);
+            System.out.println("delta: " + delta);
 
             // update the frame counter
             lastFpsTime += updateLength;
             fps++;
 
-            // update our FPS counter if a second has passed since
-            // we last recorded
             if (lastFpsTime >= 1000000000)
             {
-                // debug the actual drawing FPS
                 System.out.println("(FPS: "+fps+")");
                 lastFpsTime = 0;
                 fps = 0;
             }
 
-            // update the game logic
-            Tick(delta);
+            Tick((float)delta);
 
-            // draw to screen
             Render();
 
             try{
-                //Thread.sleep((lastLoopTime - System.nanoTime() + OPTIMAL_TIME) / 1000000);
+                Thread.sleep( (System.nanoTime() - lastLoopTime + OPTIMAL_TIME) / 1000000000 );
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            catch(Exception e)
-            {
-                // some thread thing failed!
-            }
-
-            // UPDATE BACK THE LAST TIME
-            lastLoopTime = System.nanoTime();
         }
     }
 
