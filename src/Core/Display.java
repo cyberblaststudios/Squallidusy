@@ -21,7 +21,7 @@ public class Display extends Canvas{
     public Graphics2D graphics;
 
     // our game window
-    private JFrame frame;
+    public JFrame frame;
 
     // this is the rendered resolution on the display, no matter the JFrame size
     public Vector2D ViewportSize = new Vector2D(1920, 1080);
