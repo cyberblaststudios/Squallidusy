@@ -50,14 +50,19 @@ public class CollisionComponent extends EntityComponent {
         return hits;
     }
 
-    public ArrayList<Entity> CheckMove(Vector2D movementDirection, float moveDist)
+    public ArrayList<Entity> CheckMove(Vector2D movementDirection)
     {
         Vector2D initPosition = GetWorldLocation();
 
         // test move the component
-        SetWorldLocation(movementDirection.scale(moveDist));
+        Box.x = (int)initPosition.add(movementDirection).X;
+        Box.y = (int)initPosition.add(movementDirection).Y;
 
+        // actually check for hits
         ArrayList<Entity> hits = CollisionCheck();
+
+        Box.x = (int)GetWorldLocation().X;
+        Box.y = (int)GetWorldLocation().Y;
 
         return hits;
     }
@@ -66,8 +71,7 @@ public class CollisionComponent extends EntityComponent {
     {
         super.ComponentTick(DeltaTime);
 
-        // set the box position
-        Box.setSize(Width, Height);
-        Box.setLocation((int)GetWorldLocation().X, (int)GetWorldLocation().Y);
+        Box.x = (int)GetWorldLocation().X;
+        Box.y = (int)GetWorldLocation().Y;
     }
 }
