@@ -12,7 +12,7 @@ import Utils.Vector2D;
  */
 public class Blast extends Entity{
 
-    private float timeout = 5;
+    private float timeout = 5.0f;
     private float Speed = 0;
 
     private boolean isActive = false;
@@ -41,12 +41,6 @@ public class Blast extends Entity{
     public void Tick(float DeltaTime)
     {
         super.Tick(DeltaTime);
-
-        // check the collision
-        if (collision.CollisionCheck().size() > 0)
-        {
-            System.out.println("lu=sfsfsfsf");
-        }
 
         SetCurrentLocation(GetCurrentLocation().add(Direction.scale(Speed)));
         timeout -= DeltaTime;

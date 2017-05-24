@@ -48,6 +48,7 @@ public class Display extends Canvas{
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         this.addKeyListener(InputManager.GetInputManager());
+        this.addMouseListener(InputManager.GetInputManager());
         this.requestFocus();
         // add the render buckets
 
@@ -99,9 +100,15 @@ public class Display extends Canvas{
     {
         int renderBucket = renderItem.GetRenderBucket();
 
-        if (renderBucket >= 0 && renderBucket < RenderBucketList.size())
-        {
-            RenderBucketList.get(renderBucket).remove(renderItem);
+        if (renderBucket >= 0 && renderBucket < RenderBucketList.size()) {
+
+            for (int i = RenderBucketList.get(renderBucket).size() - 1; i >= 0; i--)
+            {
+                if (RenderBucketList.get(renderBucket).get(i).renderObject == renderItem) {
+                    // then remove it
+                    RenderBucketList.get(renderBucket).remove(i);
+                }
+            }
         }
     }
 

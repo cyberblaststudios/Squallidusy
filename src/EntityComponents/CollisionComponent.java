@@ -2,6 +2,7 @@ package EntityComponents;
 
 import Core.GameInstance;
 import Entities.Entity;
+import Utils.CollisionCheckResult;
 import Utils.Vector2D;
 
 import java.awt.*;
@@ -31,9 +32,11 @@ public class CollisionComponent extends EntityComponent {
     }
 
     // returns entities hit
-    public ArrayList<Entity> CollisionCheck()
+    public CollisionCheckResult CollisionCheck(boolean adjustParentLocation)
     {
         ArrayList<Entity> hits = new ArrayList<Entity>();
+
+        Vector2D correctionVector = new Vector2D(0,0);
 
         for (CollisionComponent comp : Owner.GetLevel().CollisionComps)
         {
@@ -43,14 +46,32 @@ public class CollisionComponent extends EntityComponent {
                 {
                     // add the entity if it was hit
                     hits.add(comp.Owner);
+
+                    // adjust the parent entity if nessesary
+                    if (adjustParentLocation) {
+
+                        Rectangle intersect = comp.Box.intersection(this.Box);
+
+                        // the amount
+                        Vector2D correctionMove = new Vector2D(0, 0);
+
+                        if (intersect.width != 0 && intersect.height != 0)
+                        {
+                            correctionMove.X = intersect.width;
+                            correctionMove.Y = intersect.height;
+                        }
+
+                        // add the correction to the master correction vector
+                        correctionVector = correctionVector.add(correctionMove);
+                    }
                 }
             }
         }
 
-        return hits;
+        return new CollisionCheckResult(correctionVector, hits);
     }
 
-    public ArrayList<Entity> CheckMove(Vector2D movementDirection)
+    public CollisionCheckResult CheckMove(Vector2D movementDirection, boolean adjustParentLocation)
     {
         Vector2D initPosition = GetWorldLocation();
 
@@ -59,12 +80,12 @@ public class CollisionComponent extends EntityComponent {
         Box.y = (int)initPosition.add(movementDirection).Y;
 
         // actually check for hits
-        ArrayList<Entity> hits = CollisionCheck();
+        CollisionCheckResult result = CollisionCheck(adjustParentLocation);
 
-        Box.x = (int)GetWorldLocation().X;
-        Box.y = (int)GetWorldLocation().Y;
+        Box.x = (int) GetWorldLocation().X;
+        Box.y = (int) GetWorldLocation().Y;
 
-        return hits;
+        return result;
     }
 
     public void ComponentTick(float DeltaTime)
@@ -73,5 +94,12 @@ public class CollisionComponent extends EntityComponent {
 
         Box.x = (int)GetWorldLocation().X;
         Box.y = (int)GetWorldLocation().Y;
+    }
+
+    public void Destroy()
+    {
+        super.Destroy();
+
+        GameInstance.GetGameInstance().CurrentLevel.CollisionComps.remove(this);
     }
 }

@@ -58,6 +58,11 @@ public class Vector2D {
         return v2;
     }
 
+    public boolean equals(Vector2D other)
+    {
+        return this.X == other.X && this.Y == other.Y;
+    }
+
     public double dotProduct (Vector2D other)
     {
         return X * other.X + Y * other.Y;
