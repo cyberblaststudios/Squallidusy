@@ -37,9 +37,10 @@ public class InputManager implements KeyListener, MouseListener{
     }
 
     public void keyTyped(KeyEvent e) {
-        for (InputEvent event : Subscribers)
+
+        for (int i = Subscribers.size() - 1; i >= 0; i--)
         {
-            event.KeyTyped(e);
+            Subscribers.get(i).KeyTyped(e);
         }
     }
 
@@ -51,9 +52,9 @@ public class InputManager implements KeyListener, MouseListener{
             Pressedkeys.add(new Integer(e.getKeyCode()));
         }
 
-        for (InputEvent event : Subscribers)
+        for (int i = Subscribers.size() - 1; i >= 0; i--)
         {
-            event.KeyPressed(e);
+            Subscribers.get(i).KeyPressed(e);
         }
     }
 
@@ -68,9 +69,9 @@ public class InputManager implements KeyListener, MouseListener{
             }
         }
 
-        for (InputEvent event : Subscribers)
+        for (int i = Subscribers.size() - 1; i >= 0; i--)
         {
-            event.KeyReleased(e);
+            Subscribers.get(i).KeyReleased(e);
         }
     }
 
@@ -92,27 +93,26 @@ public class InputManager implements KeyListener, MouseListener{
 
     public void mouseClicked(MouseEvent e) {
 
-        for (InputEvent event : Subscribers)
+        for (int i = Subscribers.size() - 1; i >= 0; i--)
         {
-            event.mouseClicked(e);
+            Subscribers.get(i).mouseClicked(e);
         }
 
     }
 
     public void mousePressed(MouseEvent e) {
 
-        for (InputEvent event : Subscribers)
+        for (int i = Subscribers.size() - 1; i >= 0; i--)
         {
-            event.mousePressed(e);
+            Subscribers.get(i).mousePressed(e);
         }
-
     }
 
     public void mouseReleased(MouseEvent e) {
 
-        for (InputEvent event : Subscribers)
+        for (int i = Subscribers.size() - 1; i >= 0; i--)
         {
-            event.mouseReleased(e);
+            Subscribers.get(i).mouseReleased(e);
         }
 
     }

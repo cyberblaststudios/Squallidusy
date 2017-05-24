@@ -5,6 +5,7 @@ import EntityComponents.CollisionComponent;
 import EntityComponents.SpriteComponent;
 import Levels.Level;
 import Rendering.RenderBuckets;
+import Utils.CollisionCheckResult;
 import Utils.Vector2D;
 
 /**
@@ -19,6 +20,8 @@ public class Blast extends Entity{
 
     private Vector2D Direction;
 
+    private Entity Instigator;
+
     public CollisionComponent collision;
 
     public Blast(Vector2D Position, Level level) {
@@ -29,13 +32,15 @@ public class Blast extends Entity{
         collision = new CollisionComponent(this, new Vector2D(0,0), 16, 13);
     }
 
-    public void Initialize(Vector2D direction, float speed)
+    public void Initialize(Vector2D direction, float speed, Entity instigator)
     {
         Speed = speed;
 
         isActive = true;
 
         Direction = direction;
+
+        Instigator = instigator;
     }
 
     public void Tick(float DeltaTime)
@@ -43,6 +48,26 @@ public class Blast extends Entity{
         super.Tick(DeltaTime);
 
         SetCurrentLocation(GetCurrentLocation().add(Direction.scale(Speed)));
+
+        // check for collisions
+        CollisionCheckResult result = collision.CollisionCheck(false);
+
+        if (result.HitEntities.size() > 0) {
+
+            boolean shouldDestroy = true;
+
+            for (int i = 0; i < result.HitEntities.size(); i++) {
+                if (result.HitEntities.get(i) != Instigator) {
+                    System.out.println(result.HitEntities.get(i).getClass().getName());
+                }else{
+                    shouldDestroy = false;
+                }
+            }
+            if(shouldDestroy) {
+                Destroy();
+            }
+        }
+
         timeout -= DeltaTime;
         if(timeout <= 0) {
             Destroy();

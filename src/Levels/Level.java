@@ -62,10 +62,10 @@ public abstract class Level {
 
     public void Destroy()
     {
-        for (Entity entity : WorldEntities)
+        for (int i = WorldEntities.size() - 1; i >= 0; i--)
         {
             // destroy each entity
-            entity.Destroy();
+            WorldEntities.get(i).Destroy();
         }
     }
 }

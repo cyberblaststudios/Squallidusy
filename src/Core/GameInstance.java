@@ -2,6 +2,7 @@ package Core;
 
 import Levels.Level;
 import Levels.MainLevel;
+import Levels.Menu;
 
 /**
  * Created by jevanger on 2/6/2017.
@@ -35,7 +36,7 @@ public class GameInstance implements Runnable
         display = new Display();
 
         // run the current level
-        OpenLevel(MainLevel.class);
+        OpenLevel(Menu.class);
     }
 
     // opens a level
@@ -125,7 +126,6 @@ public class GameInstance implements Runnable
 
             try{
                 Thread.sleep((System.nanoTime() - lastLoopTime + OPTIMAL_TIME) / 1000000000);
-                //Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
