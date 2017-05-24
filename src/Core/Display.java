@@ -33,7 +33,7 @@ public class Display extends Canvas{
     public Display()
     {
         // create the screen here
-        frame = new JFrame("This amazing game");
+        frame = new JFrame("Squallidusy");
         this.setMinimumSize(new Dimension((int)ViewportSize.X, (int)ViewportSize.Y));
         this.setPreferredSize(new Dimension((int)ViewportSize.X, (int)ViewportSize.Y));
         this.setMaximumSize(new Dimension((int)ViewportSize.X, (int)ViewportSize.Y));
