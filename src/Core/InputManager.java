@@ -92,8 +92,6 @@ public class InputManager implements KeyListener, MouseListener{
 
     public void mouseClicked(MouseEvent e) {
 
-
-
         for (InputEvent event : Subscribers)
         {
             event.mouseClicked(e);
@@ -102,8 +100,6 @@ public class InputManager implements KeyListener, MouseListener{
     }
 
     public void mousePressed(MouseEvent e) {
-
-        System.out.println("Harambe was an inside job");
 
         for (InputEvent event : Subscribers)
         {

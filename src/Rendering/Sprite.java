@@ -63,27 +63,17 @@ public class Sprite {
         SpriteImage = assetManager.GetImageAsset(assetID);
     }
 
-    public void Render(Graphics2D g) {
+    public void Render(Graphics2D g)
+    {
+        int sx1 = XFlipped ? SpriteImage.getWidth() : 0;
 
-        //Rectangle spriteBounds = new Rectangle((int) SpritePosition.X, (int) SpritePosition.Y, SpriteImage.getWidth(), SpriteImage.getHeight());
+        int sy1 = YFlipped ? SpriteImage.getHeight() : 0;
 
-        //Display vp = GameInstance.GetGameInstance().GetDisplay();
+        int sx2 = XFlipped ? 0 : SpriteImage.getWidth();
 
-        //Rectangle viewportBounds = new Rectangle((int) vp.GetViewportOffset().X, (int) vp.GetViewportOffset().Y, (int) vp.ScaledViewportSize.X, (int) vp.ScaledViewportSize.Y);
+        int sy2 = YFlipped ? 0 : SpriteImage.getHeight();
 
-        // cull out any render targets that are not in view
-        //if (viewportBounds.intersects(spriteBounds))
-        //{
-            int sx1 = XFlipped ? SpriteImage.getWidth() : 0;
-
-            int sy1 = YFlipped ? SpriteImage.getHeight() : 0;
-
-            int sx2 = XFlipped ? 0 : SpriteImage.getWidth();
-
-            int sy2 = YFlipped ? 0 : SpriteImage.getHeight();
-
-            // draw the image with flipping handled
-            g.drawImage(SpriteImage, (int) SpritePosition.X, (int) SpritePosition.Y, (int) SpritePosition.X + SpriteImage.getWidth(), (int) SpritePosition.Y + SpriteImage.getHeight(), sx1, sy1, sx2, sy2, null);
-       // }
+        // draw the image with flipping handled
+        g.drawImage(SpriteImage, (int) SpritePosition.X, (int) SpritePosition.Y, (int) SpritePosition.X + SpriteImage.getWidth(), (int) SpritePosition.Y + SpriteImage.getHeight(), sx1, sy1, sx2, sy2, null);
     }
 }

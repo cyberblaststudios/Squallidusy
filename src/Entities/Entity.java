@@ -48,6 +48,9 @@ public abstract class Entity {
             // destroy each component
             Components.get(i).Destroy();
         }
+
+        // remove self from list in level
+        GetLevel().WorldEntities.remove(this);
     }
 
     // todo get a good Vector class read
