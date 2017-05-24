@@ -36,7 +36,7 @@ public class GameInstance implements Runnable
         display = new Display();
 
         // run the current level
-        OpenLevel(MainLevel.class);
+        OpenLevel(Menu.class);
     }
 
     // opens a level

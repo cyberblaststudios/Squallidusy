@@ -149,10 +149,11 @@ public class Display extends Canvas{
         {
             for (int i = list.size() - 1; i >= 0; i--)
             {
-                // render each item
-                if (list.get(i).renderObject != null)
-                {
-                    list.get(i).renderObject.Render(graphics);
+                if (list != null) {
+                    // render each item
+                    if (list.get(i).renderObject != null) {
+                        list.get(i).renderObject.Render(graphics);
+                    }
                 }
             }
         }

@@ -17,7 +17,5 @@ public class MainMenuUI extends Entity{
         super(Position, level);
 
         SpriteComponent spr = new SpriteComponent(this, new Vector2D(0,0), "MAINMENU_UI", RenderBuckets.UI_BUCKET, 1000);
-
-        GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(new Vector2D(-(1920 / 2), -(1080 / 2)));
     }
 }

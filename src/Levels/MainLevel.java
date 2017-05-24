@@ -18,24 +18,25 @@ public class MainLevel extends Level {
 
     float panspeed = 100.0f;
 
-    public void StartLevel()
-    {
+    public void StartLevel() {
         // spawn the entities here
         try {
 
             Display dis = GameInstance.GetGameInstance().GetDisplay();
 
-            SpawnEntity(Player.class, new Vector2D(0,0));
-            SpawnEntity(Mob.class, new Vector2D(200,200));
+            SpawnEntity(Player.class, new Vector2D(0, 0));
+            SpawnEntity(Mob.class, new Vector2D(200, 200));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        // recenter the viewport i guess
+        GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(new Vector2D(0, 0));
+        GameInstance.GetGameInstance().GetDisplay().SetViewportScalePercentage(.4f);
+
         // spawn a bunch of tiles
-        for(int x = 0; x < 100; x++)
-        {
-            for(int y = 0; y < 100; y++)
-            {
+        for (int x = 0; x < 100; x++) {
+            for (int y = 0; y < 100; y++) {
                 try {
                     SpawnEntity(FloorTile.class, new Vector2D(x * 8, y * 8));
                 } catch (Exception e) {
@@ -51,10 +52,10 @@ public class MainLevel extends Level {
 
         if (InputManager.GetInputManager().isKeyDown(KeyEvent.VK_PAGE_UP))
         {
-            GameInstance.GetGameInstance().GetDisplay().SetViewportScalePercentage(GameInstance.GetGameInstance().GetDisplay().GetViewportSizePercentage() + .004f * DeltaTime);
+            GameInstance.GetGameInstance().GetDisplay().SetViewportScalePercentage(GameInstance.GetGameInstance().GetDisplay().GetViewportSizePercentage() + 5f * DeltaTime);
         }else if(InputManager.GetInputManager().isKeyDown(KeyEvent.VK_PAGE_DOWN))
         {
-            GameInstance.GetGameInstance().GetDisplay().SetViewportScalePercentage(GameInstance.GetGameInstance().GetDisplay().GetViewportSizePercentage() - .004f * DeltaTime);
+            GameInstance.GetGameInstance().GetDisplay().SetViewportScalePercentage(GameInstance.GetGameInstance().GetDisplay().GetViewportSizePercentage() - 5f * DeltaTime);
         }
     }
 }

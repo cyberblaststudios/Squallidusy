@@ -8,7 +8,6 @@ import Utils.Vector2D;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Jaden on 5/23/2017.
@@ -19,6 +18,9 @@ public class Menu extends Level {
 
     public void StartLevel()
     {
+        GameInstance.GetGameInstance().GetDisplay().SetViewportScalePercentage(1.f);
+        GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(new Vector2D(-(1920 / 2), -(1080 / 2)));
+
         try {
             SpawnEntity(MainMenuUI.class, new Vector2D(0,0));
         } catch (Exception e) {
@@ -59,7 +61,7 @@ public class Menu extends Level {
 
     public void Destroy()
     {
-
+        super.Destroy();
     }
 
 }

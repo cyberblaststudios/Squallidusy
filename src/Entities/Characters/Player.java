@@ -3,6 +3,7 @@ package Entities.Characters;
 import Core.GameInstance;
 import Core.InputEvent;
 import Core.InputManager;
+import Entities.Entity;
 import Entities.Projectiles.Blast;
 import EntityComponents.CollisionComponent;
 import EntityComponents.SpriteComponent;
@@ -32,6 +33,8 @@ public class Player extends Character{
         CharacterSprite = new SpriteComponent(this, new Vector2D(0.0f, 0.0f), "warrior_still", RenderBuckets.FOREGROUND_BUCKET, 100);
 
         collision = new CollisionComponent(this, new Vector2D(0,0), 21, 24);
+
+        final Entity current = this;
 
         InputManager.GetInputManager().OnInputEvent(new InputEvent() {
             public void KeyPressed(KeyEvent e) {
@@ -64,7 +67,7 @@ public class Player extends Character{
 
                     if(blast != null)
                     {
-                        blast.Initialize(new Vector2D(1,0), 10);
+                        blast.Initialize(new Vector2D(1,0), 10, current);
                     }
                 }
             }
@@ -93,6 +96,10 @@ public class Player extends Character{
 
             public void mouseClicked(MouseEvent e) {
 
+            }
+
+            public void mousePressed(MouseEvent e) {
+
                 Vector2D mousePos = new Vector2D(e.getX(), e.getY());
 
                 Vector2D screenCenter = new Vector2D(GameInstance.GetGameInstance().GetDisplay().frame.getWidth() / 2, GameInstance.GetGameInstance().GetDisplay().getHeight() / 2);
@@ -109,12 +116,8 @@ public class Player extends Character{
 
                 if (bl != null)
                 {
-                    bl.Initialize(shootDir, 2.0f);
+                    bl.Initialize(shootDir, 2.0f, current);
                 }
-            }
-
-            public void mousePressed(MouseEvent e) {
-
             }
 
             public void mouseReleased(MouseEvent e) {
@@ -189,5 +192,8 @@ public class Player extends Character{
                 }
             }
         }
+
+        // invert the vector because of the translation of the viewport
+        GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GetCurrentLocation().scale(-1));
     }
 }
