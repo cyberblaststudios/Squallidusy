@@ -2,6 +2,7 @@ package EntityComponents;
 
 import Core.GameInstance;
 import Entities.Entity;
+import Rendering.RenderBuckets;
 import Rendering.Renderable;
 import Rendering.Sprite;
 import Utils.Vector2D;
@@ -91,4 +92,5 @@ public class SpriteComponent extends EntityComponent implements Renderable{
         // tells the renderer to re-sort the render bucket that this sprite is in
         GameInstance.GetGameInstance().GetDisplay().SortRenderBucket(RenderBucket);
     }
+
 }

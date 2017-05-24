@@ -31,6 +31,7 @@ public class AssetManager {
         LoadAsset("FT_GRASS", "./res/Floor_Tiles/Grass_Floor_Tile.png");
         LoadAsset("BLAST_01", "./res/Characters/Space_Warrior/warrior_blast.png");
         LoadAsset("MOB_01", "./res/Characters/Mob/rsz_1Yashi.png");
+        LoadAsset("map", "./res/maps/tiling.png");
     }
 
     public static AssetManager GetAssetManager()

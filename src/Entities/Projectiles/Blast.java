@@ -26,6 +26,8 @@ public class Blast extends Entity{
 
         SpriteComponent sprite = new SpriteComponent(this, new Vector2D(0,0), "BLAST_01", RenderBuckets.FOREGROUND_BUCKET, 10000);
 
+
+
         collision = new CollisionComponent(this, new Vector2D(0,0), 16, 13);
     }
 

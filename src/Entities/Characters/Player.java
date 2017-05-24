@@ -131,77 +131,62 @@ public class Player extends Character{
         {
             CollisionCheckResult result = collision.CheckMove(new Vector2D(0, -MovementSpeed * DeltaTime), true);
 
-            // compensate for the collision
-            SetCurrentLocation(GetCurrentLocation().add(result.CorrectionMove));
+            Vector2D prevLoc = GetCurrentLocation();
 
             if (result.HitEntities.size() == 0) {
-
                 SetCurrentLocation(GetCurrentLocation().add(new Vector2D(0, -MovementSpeed * DeltaTime)));
-                GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(new Vector2D(0, MovementSpeed * DeltaTime)));
 
-            }
-            else
-            {
-                // compensate for the collision
-                SetCurrentLocation(GetCurrentLocation().add(result.CorrectionMove));
-                GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(result.CorrectionMove));
+                if (collision.CollisionCheck(false).HitEntities.size() != 0)
+                {
+                    SetCurrentLocation(prevLoc);
+                }
             }
         }
         else if(InputManager.GetInputManager().isKeyDown(KeyEvent.VK_DOWN))
         {
             CollisionCheckResult result = collision.CheckMove(new Vector2D(0, MovementSpeed * DeltaTime), true);
 
-            // compensate for the collision
-            SetCurrentLocation(GetCurrentLocation().add(result.CorrectionMove));
+            Vector2D prevLoc = GetCurrentLocation();
 
             if (result.HitEntities.size() == 0) {
-
                 SetCurrentLocation(GetCurrentLocation().add(new Vector2D(0, MovementSpeed * DeltaTime)));
-                GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(new Vector2D(0, -MovementSpeed * DeltaTime)));
 
-            }
-            else
-            {
-                // compensate for the collision
-                SetCurrentLocation(GetCurrentLocation().add(result.CorrectionMove));
-                GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(result.CorrectionMove));
+                if (collision.CollisionCheck(false).HitEntities.size() != 0)
+                {
+                    SetCurrentLocation(prevLoc);
+                }
             }
         }
         else if (InputManager.GetInputManager().isKeyDown(KeyEvent.VK_LEFT))
         {
             CollisionCheckResult result = collision.CheckMove(new Vector2D(-MovementSpeed * DeltaTime, 0), true);
 
-            // compensate for the collision
-            SetCurrentLocation(GetCurrentLocation().add(result.CorrectionMove));
+            Vector2D prevLoc = GetCurrentLocation();
 
             if (result.HitEntities.size() == 0) {
-
                 SetCurrentLocation(GetCurrentLocation().add(new Vector2D(-MovementSpeed * DeltaTime, 0)));
                 CharacterSprite.SetXFlipped(true);
-                GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(new Vector2D(MovementSpeed * DeltaTime, 0)));
-            }
-            else
-            {
-                // compensate for the collision
-                SetCurrentLocation(GetCurrentLocation().add(result.CorrectionMove));
-                GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(result.CorrectionMove));
+
+                if (collision.CollisionCheck(false).HitEntities.size() != 0)
+                {
+                    SetCurrentLocation(prevLoc);
+                }
             }
         }
         else if(InputManager.GetInputManager().isKeyDown(KeyEvent.VK_RIGHT))
         {
             CollisionCheckResult result = collision.CheckMove(new Vector2D(MovementSpeed * DeltaTime, 0), true);
 
-            if (result.HitEntities.size() == 0) {
+            Vector2D prevLoc = GetCurrentLocation();
 
+            if (result.HitEntities.size() == 0) {
                 SetCurrentLocation(GetCurrentLocation().add(new Vector2D(MovementSpeed * DeltaTime, 0)));
                 CharacterSprite.SetXFlipped(false);
-                GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(new Vector2D(-MovementSpeed * DeltaTime, 0)));
-            }
-            else
-            {
-                // compensate for the collision
-                SetCurrentLocation(GetCurrentLocation().add(result.CorrectionMove));
-                GameInstance.GetGameInstance().GetDisplay().SetViewportOffset(GameInstance.GetGameInstance().GetDisplay().GetViewportOffset().add(result.CorrectionMove));
+
+                if (collision.CollisionCheck(false).HitEntities.size() != 0)
+                {
+                    SetCurrentLocation(prevLoc);
+                }
             }
         }
     }

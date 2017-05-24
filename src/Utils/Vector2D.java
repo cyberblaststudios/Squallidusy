@@ -51,8 +51,8 @@ public class Vector2D {
         float length = length();
 
         if (length != 0) {
-            v2.X = Y / length;
-            v2.X = Y / length;
+            v2.X = X / length;
+            v2.Y = Y / length;
         }
 
         return v2;

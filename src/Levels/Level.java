@@ -4,7 +4,6 @@ import Entities.Entity;
 import EntityComponents.CollisionComponent;
 import Utils.Vector2D;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -36,7 +35,8 @@ public abstract class Level {
     // called when the level starts
     public void StartLevel()
     {
-        // Called when level is created
+
+
     }
 
     // this will spawn a entity in the world at the world position indicated by SpawnLocation

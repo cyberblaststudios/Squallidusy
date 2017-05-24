@@ -1,7 +1,9 @@
 package Entities;
 
 import EntityComponents.EntityComponent;
+import EntityComponents.SpriteComponent;
 import Levels.Level;
+import Rendering.RenderBuckets;
 import Utils.Vector2D;
 import java.util.ArrayList;
 
@@ -18,6 +20,8 @@ public abstract class Entity {
 
     public Level GetLevel()
     {
+
+
         return CurrentLevel;
     }
 
@@ -65,4 +69,7 @@ public abstract class Entity {
     {
         CurrentLocation = newLoc;
     }
+
+
+
 }
