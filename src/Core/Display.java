@@ -1,14 +1,11 @@
 package Core;
 
-import EntityComponents.CollisionComponent;
 import Rendering.RenderItem;
 import Rendering.Renderable;
 import Utils.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -161,9 +158,12 @@ public class Display extends Canvas{
         }
 
         // draw the collision
-        for (CollisionComponent comp : GameInstance.GetGameInstance().CurrentLevel.CollisionComps)
+        for (int i = GameInstance.GetGameInstance().CurrentLevel.CollisionComps.size() - 1; i >= 0; i--)
         {
-            graphics.drawRect(comp.Box.x, comp.Box.y, comp.Box.width, comp.Box.height);
+            graphics.drawRect(GameInstance.GetGameInstance().CurrentLevel.CollisionComps.get(i).Box.x,
+                    GameInstance.GetGameInstance().CurrentLevel.CollisionComps.get(i).Box.y,
+                    GameInstance.GetGameInstance().CurrentLevel.CollisionComps.get(i).Box.width,
+                    GameInstance.GetGameInstance().CurrentLevel.CollisionComps.get(i).Box.height);
         }
 
         graphics.dispose();
