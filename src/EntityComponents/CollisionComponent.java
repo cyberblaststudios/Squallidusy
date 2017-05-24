@@ -34,6 +34,10 @@ public class CollisionComponent extends EntityComponent {
     // returns entities hit
     public CollisionCheckResult CollisionCheck(boolean adjustParentLocation)
     {
+        // update the location FORCEFULLY
+        Box.x = (int)GetWorldLocation().X;
+        Box.y = (int)GetWorldLocation().Y;
+
         ArrayList<Entity> hits = new ArrayList<Entity>();
 
         Vector2D correctionVector = new Vector2D(0,0);
@@ -75,12 +79,14 @@ public class CollisionComponent extends EntityComponent {
     {
         Vector2D initPosition = GetWorldLocation();
 
+        Vector2D newDirection = movementDirection.normalize();
+
         // test move the component
-        Box.x = (int)initPosition.add(movementDirection).X;
-        Box.y = (int)initPosition.add(movementDirection).Y;
+        Box.x = (int)initPosition.add(newDirection).X;
+        Box.y = (int)initPosition.add(newDirection).Y;
 
         // actually check for hits
-        CollisionCheckResult result = CollisionCheck(adjustParentLocation);
+        CollisionCheckResult result = CollisionCheck(false);
 
         Box.x = (int) GetWorldLocation().X;
         Box.y = (int) GetWorldLocation().Y;
